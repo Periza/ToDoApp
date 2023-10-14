@@ -23,7 +23,7 @@ public class ToDoService
         return await _toDoRepository.GetByIdAsync(id);
     }
 
-    public async Task AddNewCategory(ToDoItem toDoItem)
+    public async Task AddNewToDoItem(ToDoItem toDoItem)
     {
         await _toDoRepository.AddAsync(toDoItem);
     }

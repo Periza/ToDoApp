@@ -8,7 +8,7 @@ namespace ToDoApp.Data.Repositories
 {
     public class Repository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly UnitOfWork _unitOfWork;
+        public readonly UnitOfWork _unitOfWork;
 
         public Repository(UnitOfWork unitOfWork)
         {

@@ -6,6 +6,7 @@ using ToDoApp.Data;
 using ToDoApp.Data.Entities;
 using ToDoApp.Data.Repositories;
 using ToDoApp.Data.Repositories.Contracts;
+using ToDoApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+// Make a connection string
 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 string connectionString = SQLiteConnectionProvider.GetConnectionString(Path.Combine(appDataPath, "ToDo.db"));
 XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
+
+// Inject additional services
 builder.Services.AddSingleton(XpoDefault.DataLayer);
 builder.Services.AddScoped<UnitOfWork>();
-builder.Services.AddScoped(typeof(IGenericRepository<ToDoItem>), typeof(Repository<ToDoItem>));
-builder.Services.AddScoped(typeof(IGenericRepository<Category>), typeof(Repository<Category>));
-
+builder.Services.AddScoped<Repository<ToDoItem>>();
+builder.Services.AddScoped<Repository<Category>>();
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<ToDoService>();
 var app = builder.Build();
 
 

@@ -1,0 +1,16 @@
+﻿@page "/test"
+
+<h3>test</h3>
+
+<p>Current time: @DateTime.Now</p>
+<p>Message: @message</p> @* Displaying the message variable here *@
+
+@code {
+    public string message = "poruka"; // Declare a string variable
+
+    public void OnGet()
+    {
+        message = "OnGetAsync method has been executed!";  // Set the variable
+    }
+}
+

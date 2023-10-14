@@ -1,6 +1,7 @@
 ﻿using DevExpress.Xpo;
 using ToDoApp.Data.Entities;
 using ToDoApp.Data.Repositories;
+using ToDoApp.Data.DTOs;
 
 namespace ToDoApp.Services;
 
@@ -23,14 +24,23 @@ public class CategoryService
         return await _categoryRepository.GetByIdAsync(id);
     }
 
-    public async Task AddNewCategory(Category category)
+    public async Task AddNewCategory(CategoryDTO categoryDTO)
     {
+        var category = new Category(_categoryRepository._unitOfWork)
+        {
+            Name = categoryDTO.Name
+        };
         await _categoryRepository.AddAsync(category);
     }
 
-    public async Task UpdateCategory(Category category)
+    public async Task UpdateCategory(int categoryId, CategoryDTO categoryDTO)
     {
-        await _categoryRepository.UpdateAsync(category);
+        var category = await _categoryRepository.GetByIdAsync(categoryId);
+        if (category is not null)
+        {
+            category.Name = categoryDTO.Name;
+            await _categoryRepository.UpdateAsync(category);
+        }
     }
 
     public async Task DeleteCategory(int id)

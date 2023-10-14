@@ -21,12 +21,19 @@ namespace ToDoApp.Data.Entities
             set => SetPropertyValue(nameof(Description), ref _description, value);
         }
 
-        Category category;
+        public bool _complete;
+        public bool Complete
+        {
+            get => _complete;
+            set => SetPropertyValue(nameof(Complete), ref _complete, value);
+        }
+
+        Category _category;
         [Association("Category-ToDoItems")]
         public Category Category
         {
-            get => category;
-            set => SetPropertyValue(nameof(Category), ref category, value);
+            get => _category;
+            set => SetPropertyValue(nameof(Category), ref _category, value);
         }
     }
 }

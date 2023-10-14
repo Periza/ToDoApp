@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpo;
 using System.Security.Cryptography.X509Certificates;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoApp.Data.Entities
 {
@@ -14,7 +15,7 @@ namespace ToDoApp.Data.Entities
             set => SetPropertyValue(nameof(Name), ref _name, value);
         }
 
-        [Association("Category-ToDoItems")]
+        [DevExpress.Xpo.Association("Category-ToDoItems")]
         public XPCollection<ToDoItem> TodoItems => GetCollection<ToDoItem>(nameof(TodoItems));
     }
 }
